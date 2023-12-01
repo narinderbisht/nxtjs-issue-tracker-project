@@ -1,7 +1,15 @@
-import React from 'react'
-import { Button } from '@radix-ui/themes'
+'use client'
+import { TextField, TextArea,Flex, Button } from '@radix-ui/themes'
 export default function newIssue() {
   return (
-    <div><Button>Add New Issue</Button></div>
+    <div className="max-w-2xl space-y-3">
+    
+      <TextField.Root>
+        <TextField.Input placeholder='Issue Title' />
+      </TextField.Root>
+      <TextArea placeholder="Issue Description" />
+      <Button>Submit Isssue</Button>
+          
+    </div>
   )
 }
