@@ -22,20 +22,19 @@ export async function POST(req, res ) {
             return Response.json(validation.error.format(), { status: 400 });
             
         }
-        console.log(body);
+        //console.log(body);
         const prisma = new PrismaClient(); 
         const issueCreated = await prisma.issue.create({
-            
             data: {
                 title: body.title,
                 description: body.description,
                 userId: body.userId
             }
         });
-        console.log(issueCreated);
+        //console.log(issueCreated);
         return Response.json(issueCreated, { status: 200 });
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         return Response.json(error, { status: 500 });
     }
 }
