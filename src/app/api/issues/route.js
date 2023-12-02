@@ -1,10 +1,11 @@
 import { z } from 'zod';
 //import { prisma } from '@prisma/client';
 //import prisma from '@prisma/db'
-import { PrismaClient } from "@prisma/client"; 
+//import { PrismaClient } from "@prisma/client"; 
+import prisma from '../../../../prisma/client';
 import { createIssueSchema } from '../../validationSchemas'; 
 
-export async function POST(req, res ) {
+export async function POST(req) {
     try {
         
         const body = await req.json();
@@ -14,7 +15,7 @@ export async function POST(req, res ) {
             
         }
         //console.log(body);
-        const prisma = new PrismaClient(); 
+        //const prisma = new PrismaClient(); 
         const issueCreated = await prisma.issue.create({
             data: {
                 title: body.title,
