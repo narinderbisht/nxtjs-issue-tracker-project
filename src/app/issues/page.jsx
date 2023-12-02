@@ -4,8 +4,6 @@ import Link from 'next/link'
 import prisma from '../../../prisma/client';
 import IssuesTable from './__components/issuesTable';
 
-
-
 export default async function issuesList() {
   const issues = await prisma.issue.findMany({
   orderBy: {
