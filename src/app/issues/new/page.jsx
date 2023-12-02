@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createIssueSchema } from '../../validationSchemas';
+import ErrorMessage from '@/app/components/ErrorMessage';
 
 export default function newIssue() {
 
@@ -58,7 +59,7 @@ export default function newIssue() {
         <TextField.Root>
           <TextField.Input placeholder='Issue Title' {...register('title')} />
         </TextField.Root>
-        {errors.title && <Text color="red" as='div'>{ errors.title.message }</Text>}
+        <ErrorMessage>{ errors.title?.message }</ErrorMessage>
       
         <Controller
           name="description"
@@ -67,7 +68,7 @@ export default function newIssue() {
             return <SimpleMDE placeholder="Issue Description" {...field} />
           }}
         />
-        {errors.description && <Text color="red" as='div'>{ errors.description.message }</Text>}
+        <ErrorMessage>{ errors.description?.message }</ErrorMessage>
         
         <Button>Submit Isssue</Button>
       </form>
