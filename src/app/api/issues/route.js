@@ -13,8 +13,8 @@ import { PrismaClient } from "@prisma/client";
 export async function POST(req, res ) {
     try {
         const createIssueSchema = z.object({
-            title: z.string().min(1).max(250),
-            description: z.string().min(10)
+            title: z.string().min(1, 'The title is required').max(250, 'The title max length exceed.'),
+            description: z.string().min(10, 'The description is required')
         });
         const body = await req.json();
         const validation = createIssueSchema.safeParse(body);
