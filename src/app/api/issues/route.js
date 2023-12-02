@@ -3,14 +3,7 @@ import { z } from 'zod';
 //import prisma from '@prisma/db'
 import { PrismaClient } from "@prisma/client"; 
 import { createIssueSchema } from '../../validationSchemas'; 
-/*export async function POST(req,res){
-    const data  =await req.json()
-    console.log(data)
-    return Response.json({ data })
-    //res.status(200).json({ message: 'Hello from Next.js!' })
 
-    //return NextResponse.json(data)
-}*/
 export async function POST(req, res ) {
     try {
         

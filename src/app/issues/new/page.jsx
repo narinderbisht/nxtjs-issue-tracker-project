@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createIssueSchema } from '../../validationSchemas';
 import ErrorMessage from '@/app/components/ErrorMessage';
+import Spinner from '@/app/components/Spinner';
 
 export default function newIssue() {
 
@@ -22,13 +23,14 @@ export default function newIssue() {
   });
 
   const [error, setError] = useState("");
+  const [isSubmitting, SetIsSubmitting] = useState(false);
 
   const router = useRouter();
 
   const onSubmit = async(data) => {
     //console.log(data);
     try {
-      
+      SetIsSubmitting(true);
       await axios.post('/api/issues', {
         title: data.title,
         description: data.description,
@@ -37,6 +39,7 @@ export default function newIssue() {
       );
       router.push('/issues');
     } catch (error) {
+      SetIsSubmitting(false);
       console.log(error);
       setError("An unexpected error occured");
     }
@@ -70,7 +73,7 @@ export default function newIssue() {
         />
         <ErrorMessage>{ errors.description?.message }</ErrorMessage>
         
-        <Button>Submit Isssue</Button>
+        <Button disabled={isSubmitting}>Submit Isssue {isSubmitting && <Spinner />}</Button>
       </form>
       </div>
   )
