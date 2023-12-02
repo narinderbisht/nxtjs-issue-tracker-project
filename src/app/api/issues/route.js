@@ -1,7 +1,8 @@
 import { z } from 'zod';
 //import { prisma } from '@prisma/client';
 //import prisma from '@prisma/db'
-import { PrismaClient } from "@prisma/client";  
+import { PrismaClient } from "@prisma/client"; 
+import { createIssueSchema } from '../../validationSchemas'; 
 /*export async function POST(req,res){
     const data  =await req.json()
     console.log(data)
@@ -12,10 +13,7 @@ import { PrismaClient } from "@prisma/client";
 }*/
 export async function POST(req, res ) {
     try {
-        const createIssueSchema = z.object({
-            title: z.string().min(1, 'The title is required').max(250, 'The title max length exceed.'),
-            description: z.string().min(10, 'The description is required')
-        });
+        
         const body = await req.json();
         const validation = createIssueSchema.safeParse(body);
         if (!validation.success) {
