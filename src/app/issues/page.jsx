@@ -13,7 +13,7 @@ export default async function issuesList() {
 
 //console.log(issues);
   return (
-    <div>
+    <div className="max-w-2xl mx-auto">
       <Button><Link href={'/issues/new'}>Add New Issue</Link></Button>
       <IssuesTable issues={issues} />
     </div>

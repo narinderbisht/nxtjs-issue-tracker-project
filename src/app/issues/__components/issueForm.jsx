@@ -42,6 +42,7 @@ export default function IssueForm({issue}) {
         );
        
       router.push('/issues');
+      router.refresh();
     } catch (error) {
       SetIsSubmitting(false);
       console.log(error);

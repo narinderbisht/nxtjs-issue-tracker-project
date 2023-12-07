@@ -1,11 +1,21 @@
-import React from 'react'
-import { Table, Flex, Butto, Button } from '@radix-ui/themes';
-import { FaTrash, FaEdit } from 'react-icons/fa';
+'use client'
+import React, { useState } from 'react'
+import { Table, Flex, Button, Callout } from '@radix-ui/themes';
+import { FaEdit } from 'react-icons/fa';
 import Link from 'next/link';
+import IssueDeleteButton from './issueDeleteButton';
 
-export default function IssuesTable({issues}) {
+export default function IssuesTable({ issues }) {
+    const [message, setMessage] = useState('');
   return (
-    <div>
+      <div>
+          {message &&
+              <Callout.Root className="mt-2 mb-2">
+                  <Callout.Text>
+                      {message}
+                  </Callout.Text>
+              </Callout.Root>
+          }
         <Table.Root>
             <Table.Header>
                 <Table.Row>
@@ -16,14 +26,12 @@ export default function IssuesTable({issues}) {
             </Table.Header>
             <Table.Body>
                 {issues.map((issue, index) => (
-                    <Table.Row>
+                    <Table.Row key={index}>
                         <Table.Cell>{issue.title}</Table.Cell>
                         <Table.Cell>{ issue.status }</Table.Cell>
                         <Table.Cell>
                             <Flex align="center" gap="3">
-                                <Button color='red' variant='soft'>
-                                    <FaTrash/>
-                                </Button>
+                                <IssueDeleteButton issueId={issue.id}/>
                                 <Button align="center" color='green' variant='soft'>
                                     <Link href={`/issues/${issue.id}`}><FaEdit/></Link>
                                 </Button>

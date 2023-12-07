@@ -12,7 +12,7 @@ export default async function EditIssuePage({params} ) {
         }
     })
   return (
-      <div>
+      <div className="max-w-2xl mx-auto">
           <Heading className="mb-2">Edit Issue</Heading>
           <IssueForm issue={issue}/>
     </div>

@@ -33,3 +33,26 @@ export async function PATCH(req, {params}) {
         return Response.json(error, { status: 500 });
     }
 }
+
+export async function DELETE(req, {params}) {
+    try {
+        console.log(params);
+        const body = req.body;
+        const issue = prisma.issue.findUnique({
+            where: {
+                id: parseInt(params.id)
+            }
+        });
+        console.log(issue);
+        if (!issue)
+            Response.json("Data record did not found.", { status: 404 });
+        await prisma.issue.delete({
+            where: {
+                id: parseInt(params.id)
+            }
+        });
+        return Response.json({});
+    } catch (error) {
+        return Response.json(error, { status: 500 });
+    }
+}
