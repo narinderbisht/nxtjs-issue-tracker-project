@@ -23,7 +23,7 @@ export default function IssueDeleteButton({ children, issueId }) {
     return (
     <>
         {/* Open the modal using document.getElementById('ID').showModal() method */}
-        <button className="btn btn-error btn-sm" onClick={() => document.getElementById('my_modal_1').showModal()}><FaTrash/> { children}</button>
+        <button className="btn btn-error btn-sm text-white" onClick={() => document.getElementById('my_modal_1').showModal()}><FaTrash/> { children}</button>
         <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
             <h3 className="font-bold text-lg">Delete Data!</h3>

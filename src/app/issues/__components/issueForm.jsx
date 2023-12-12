@@ -53,7 +53,7 @@ export default function IssueForm({issue}) {
   }
 
   return (
-    <div className="max-w-xl">
+    <div className="p-6 space-y-6">
       {error &&
         <Callout.Root color='red' className="mb-2">
           <Callout.Text>
@@ -62,15 +62,18 @@ export default function IssueForm({issue}) {
         </Callout.Root>
       }
     
-    <form className="max-w-2xl space-y-3" onSubmit={handleSubmit(onSubmit)}>
-      
-        <TextField.Root>
-                  <TextField.Input 
+    <form className="flex flex-col gap-4 justify-start" onSubmit={handleSubmit(onSubmit)}>
+      <div className="form-control">
+        <label for="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Issue Title</label>
+        <input type="text" className="input input-bordered input-md w-full" 
                       defaultValue={issue ? issue.title : ''}
           placeholder='Issue Title' {...register('title')} />
-        </TextField.Root>
+        
         <ErrorMessage>{ errors.title?.message }</ErrorMessage>
-      
+        </div>
+        <div className="form-control">
+
+        <label for="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Issue Description</label>
         <Controller
           name="description"
                   control={control}
@@ -80,9 +83,12 @@ export default function IssueForm({issue}) {
           }}
         />
         <ErrorMessage>{ errors.description?.message }</ErrorMessage>
+        </div>
+        <div className="form-control">
+          <button className="text-white btn btn-primary btn-md w-max" disabled={isSubmitting}>
+                  {issue ? 'Update Issue' : 'Submit Isssue'} {isSubmitting && <Spinner />}</button>
+        </div>
         
-              <Button disabled={isSubmitting}>
-                  {issue ? 'Update Issue' : 'Submit Isssue'} {isSubmitting && <Spinner />}</Button>
       </form>
       </div>
   )
