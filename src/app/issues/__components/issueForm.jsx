@@ -8,8 +8,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createIssueSchema } from '../../validationSchemas';
-import ErrorMessage from '@/app/components/ErrorMessage';
-import Spinner from '@/app/components/Spinner';
+import ErrorMessage from '../../components/ErrorMessage';
+import Spinner from '../../components/Spinner';
 
 export default function IssueForm({issue}) {
 

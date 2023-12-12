@@ -3,6 +3,7 @@ import '@radix-ui/themes/styles.css';
 import './globals.css'
 import NavBar from './components/NavBar'
 import { Theme,ThemePanel } from '@radix-ui/themes';
+import SideBar from './components/SideBar';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -12,13 +13,18 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light">
-      <body className={inter.className}>
-        <Theme appearance="light">
-        
+      <body className={inter.className + ' antialiased bg-gray-50 dark:bg-gray-800'} >
+        <Theme>
           <NavBar/>
-          <main className="px-4 py-12 mx-auto">
+          <div className="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
+            <SideBar />
+            <div className="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
+              
+                
             {children}
-          </main>
+              
+            </div>
+          </div>
         </Theme>
       </body>
     </html>

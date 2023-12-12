@@ -3,12 +3,16 @@ import React, { useState } from 'react'
 import { Table, Flex, Button, Callout } from '@radix-ui/themes';
 import { FaEdit } from 'react-icons/fa';
 import Link from 'next/link';
-import IssueDeleteButton from './issueDeleteButton';
+import DeleteButton from '../../components/ui/DeleteButton';
+import EditLinkButton from '../../components/ui/EditLinkButton';
 
 export default function IssuesTable({ issues }) {
     const [message, setMessage] = useState('');
   return (
-      <div>
+      <div className="flex flex-col">
+          <div className="overflow-x-auto">
+              <div className="inline-block min-w-full align-middle">
+                  <div className="overflow-hidden shadow">
           {message &&
               <Callout.Root className="mt-2 mb-2">
                   <Callout.Text>
@@ -16,32 +20,33 @@ export default function IssuesTable({ issues }) {
                   </Callout.Text>
               </Callout.Root>
           }
-        <Table.Root>
-            <Table.Header>
-                <Table.Row>
-                    <Table.ColumnHeaderCell>Issue Title</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Isssue Status</Table.ColumnHeaderCell>
-                    <Table.ColumnHeaderCell>Action</Table.ColumnHeaderCell>
-                </Table.Row>
-            </Table.Header>
-            <Table.Body>
+        <table className="table">
+            <thead>
+                <tr>
+                    <th>Issue Title</th>
+                    <th>Isssue Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
                 {issues.map((issue, index) => (
-                    <Table.Row key={index}>
-                        <Table.Cell>{issue.title}</Table.Cell>
-                        <Table.Cell>{ issue.status }</Table.Cell>
-                        <Table.Cell>
-                            <Flex align="center" gap="3">
-                                <IssueDeleteButton issueId={issue.id}/>
-                                <Button align="center" color='green' variant='soft'>
-                                    <Link href={`/issues/${issue.id}`}><FaEdit/></Link>
-                                </Button>
-                            </Flex>
-                        </Table.Cell>
+                    <tr key={index}>
+                        <td>{issue.title}</td>
+                        <td>{ issue.status }</td>
+                        <td>
+                            <div className="flex flex-row gap-2 overflow-x-hidde">
+                            <EditLinkButton href={`/issues/${issue.id}`}>Edit</EditLinkButton>
+                            <DeleteButton issueId={issue.id}>Delete</DeleteButton>
+                            </div>
+                        </td>
                     
-                    </Table.Row>
+                    </tr>
                 ))}
-            </Table.Body>
-        </Table.Root>
-    </div>
+            </tbody>
+        </table>
+          </div>
+          </div>
+          </div>
+          </div>
   )
 }

@@ -36,3 +36,11 @@ enum Status {
   IN_PROGRESS
   CLOSE
 }
+
+model Inovice {
+  id        Int      @id @default(autoincrement())
+  amount    Float    @db.Double()
+  status    Status   @default(OPEN)
+  createdAT DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

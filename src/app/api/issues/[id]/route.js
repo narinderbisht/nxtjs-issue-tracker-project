@@ -36,14 +36,14 @@ export async function PATCH(req, {params}) {
 
 export async function DELETE(req, {params}) {
     try {
-        console.log(params);
+        //console.log(params);
         const body = req.body;
         const issue = prisma.issue.findUnique({
             where: {
                 id: parseInt(params.id)
             }
         });
-        console.log(issue);
+        //console.log(issue);
         if (!issue)
             Response.json("Data record did not found.", { status: 404 });
         await prisma.issue.delete({

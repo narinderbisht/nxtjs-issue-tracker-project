@@ -3,6 +3,10 @@ import NavBar from './components/NavBar'
 
 export default function Home() {
   return (
-    <div>Home page</div>
+    <main>
+      <div className="px-4 pt-6">
+        Home page
+      </div>
+    </main>
   )
 }
