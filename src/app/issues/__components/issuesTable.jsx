@@ -1,51 +1,45 @@
-'use client'
-import React, { useState } from 'react'
 import { Table, Flex, Button, Callout } from '@radix-ui/themes';
 import { FaEdit } from 'react-icons/fa';
 import Link from 'next/link';
 import DeleteButton from '../../components/ui/DeleteButton';
 import EditLinkButton from '../../components/ui/EditLinkButton';
 
-export default function IssuesTable({ issues }) {
-    const [message, setMessage] = useState('');
+export default async function IssuesTable({ perPage, currentPage }) {
+    const skipPage = currentPage ? currentPage : 1;
+    
+    const issues = await prisma.issue.findMany({
+        take: perPage,
+        skip: Number(skipPage),
+        orderBy: {
+        id: 'desc'
+        },
+        
+    });
     return (
-        <div className="flex flex-col">
-            <div className="overflow-x-auto">
-                <div className="inline-block min-w-full align-middle">
-                    <div className="overflow-hidden shadow">
-                        {message &&
-                            <Callout.Root className="mt-2 mb-2">
-                                <Callout.Text>
-                                    {message}
-                                </Callout.Text>
-                            </Callout.Root>
-                        }
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>Issue Title</th>
-                                    <th>Isssue Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {issues.map((issue, index) => (
-                                    <tr key={index}>
-                                        <td>{issue.title}</td>
-                                        <td>{ issue.status }</td>
-                                        <td>
-                                            <div className="flex flex-row gap-2 overflow-x-hidden">
-                                                <EditLinkButton href={`/issues/${issue.id}`}>Edit</EditLinkButton>
-                                                <DeleteButton issueId={issue.id}>Delete</DeleteButton>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
+        <table className="table">
+            <thead>
+                <tr>
+                    <th>Issue Title</th>
+                    <th>Isssue Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {issues.map((issue, index) => (
+                    <tr key={index}>
+                        <td>{issue.title}</td>
+                        <td>{ issue.status }</td>
+                        <td>
+                            <div className="flex flex-row gap-2 overflow-x-hidden">
+                                <EditLinkButton href={`/issues/${issue.id}`}>Edit</EditLinkButton>
+                                <DeleteButton issueId={issue.id}>Delete</DeleteButton>
+                            </div>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+                        
     )
 }
