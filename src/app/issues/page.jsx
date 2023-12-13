@@ -5,9 +5,17 @@ import IssuesTable from './__components/IssuesTable';
 import CreateNewButton from '../components/ui/CreateNewButton';
 import BreadcrumbLinks from '../components/ui/BreadcrumbLinks';
 import Pagination from '../components/ui/Pagination';
+import SearchBox from '../components/ui/SearchBox';
+
 export default async function issuesList({ searchParams }) {
-  
-  const totalIssues = await prisma.issue.count();
+  const whereCondition = searchParams.query ? {
+        
+      title: {
+        contains: searchParams.query.toString()
+      }
+
+  } : {};
+  const totalIssues = await prisma.issue.count({where:whereCondition});
   const perPage = 2;
   
   const breadcrumbs = [
@@ -24,9 +32,7 @@ export default async function issuesList({ searchParams }) {
             <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">All Issues</h1>
           </div>
           <div className="items-center justify-between block sm:flex md:divide-x md:divide-gray-100 dark:divide-gray-700">
-            <div className="flex items-center mb-4 sm:mb-0">
-
-            </div>
+            <SearchBox/>
             <CreateNewButton href={'/issues/new'}>Add New Issue</CreateNewButton>
           </div>
         </div>
@@ -36,7 +42,7 @@ export default async function issuesList({ searchParams }) {
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full align-middle">
             <div className="overflow-hidden shadow">
-              <IssuesTable perPage={perPage} currentPage={searchParams.page} />
+              <IssuesTable perPage={perPage} currentPage={searchParams.page} query={searchParams.query} />
               <div className="mt-5 flex w-full justify-center">
                 <Pagination totalIssues={totalIssues} perPage={perPage} />
               </div>

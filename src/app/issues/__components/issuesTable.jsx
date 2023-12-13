@@ -4,8 +4,16 @@ import Link from 'next/link';
 import DeleteButton from '../../components/ui/DeleteButton';
 import EditLinkButton from '../../components/ui/EditLinkButton';
 
-export default async function IssuesTable({ perPage, currentPage }) {
+export default async function IssuesTable({ perPage, currentPage, query }) {
     const skipPage = currentPage ? currentPage : 1;
+
+    const whereCondition = query ? {
+        
+            title: {
+                contains: query.toString()
+            }
+        
+    } : {};
     
     const issues = await prisma.issue.findMany({
         take: perPage,
@@ -13,7 +21,7 @@ export default async function IssuesTable({ perPage, currentPage }) {
         orderBy: {
         id: 'desc'
         },
-        
+        where:whereCondition
     });
     return (
        

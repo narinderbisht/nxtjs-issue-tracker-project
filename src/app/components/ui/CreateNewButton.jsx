@@ -3,6 +3,6 @@ import Link from 'next/link';
 
 export default function CreateNewButton({children, href}) {
   return (
-    <Link href={href} className="btn btn-primary btn-sm">{children}</Link>
+    <Link href={href} className="btn btn-primary btn-md">{children}</Link>
   )
 }
